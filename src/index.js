@@ -1,14 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "bootstrap/dist/css/bootstrap.css";
-import { App } from "./app";
+import Table from "./components/table/table";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<App />);
-
-// const root = ReactDOM.createRoot(document.getElementById("root"));
-// root.render(
-//   <React.StrictMode>
-//     <App />
-//   </React.StrictMode>
-// );
+root.render(<Table />);
