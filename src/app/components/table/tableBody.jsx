@@ -1,8 +1,6 @@
 import React from "react";
 
-const TableBody = (props) => {
-  const { calls, users } = props;
-
+const TableBody = ({ calls, users }) => {
   const getUserByNumber = (numb) => {
     const filterUsers = users.filter((user) => {
       return user.id === numb;

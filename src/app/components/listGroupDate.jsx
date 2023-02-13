@@ -1,6 +1,6 @@
 import React from "react";
 
-const GroupList = ({ months, onItemSelect, selectedItem }) => {
+const GroupList = ({ months, onItemSelect, selectedItem, onClearFilter }) => {
   return (
     <>
       <ul className="list-group">
@@ -17,6 +17,11 @@ const GroupList = ({ months, onItemSelect, selectedItem }) => {
             {month.monthName}
           </li>
         ))}
+        <li>
+          <button className="btn btn-primary" onClick={onClearFilter}>
+            Сбросить фильтр
+          </button>
+        </li>
       </ul>
     </>
   );
