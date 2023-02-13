@@ -1,4 +1,4 @@
-import { fetchCalls } from "./fake.api/callsLog";
+import fetchCalls from "./fake.api/callsLog";
 import { fetchUsers } from "./fake.api/users";
 import fetchMonths from "./fake.api/month";
 

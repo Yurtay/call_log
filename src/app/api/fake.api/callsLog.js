@@ -211,6 +211,10 @@ const calls = [
   },
 ];
 
-export function fetchCalls() {
-  return calls;
-}
+const fetchCalls = () =>
+  new Promise((resolve) => {
+    window.setTimeout(function () {
+      resolve(calls);
+    }, 2000);
+  });
+export default fetchCalls;

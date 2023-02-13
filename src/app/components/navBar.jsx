@@ -1,5 +1,5 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { Route, Link } from "react-router-dom";
 import CallsList from "./callsList";
 import TelephoneDirectory from "./telephoneDirectory";
 
@@ -12,23 +12,23 @@ const NavBar = () => {
           <div className="collapse navbar-collapse" id="navbarNavDropdown">
             <ul className="navbar-nav">
               <li className="nav-item">
-                <a
+                <Link
                   className="nav-link active"
                   aria-current="page"
-                  href="callslog"
+                  to="callslog"
                 >
                   Главная
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="telephonedirectory">
+                <Link className="nav-link" to="telephonedirectory">
                   Справочник
-                </a>
+                </Link>
               </li>
               <li className="nav-item dropdown">
-                <a className="nav-link" href="#">
+                <Link className="nav-link" to="#">
                   Выбрать год
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

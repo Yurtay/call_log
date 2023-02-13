@@ -23,6 +23,4 @@ const fetchMonths = () =>
       resolve(months);
     }, 2000);
   });
-export default {
-  fetchMonths,
-};
+export default fetchMonths;

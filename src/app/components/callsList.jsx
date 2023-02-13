@@ -7,7 +7,7 @@ import Pagination from "./pagination";
 import _ from "lodash";
 
 const CallsList = () => {
-  const [callsLog] = useState(API.fetchCalls());
+  const [callsLog, setCallsLog] = useState();
   const users = API.fetchUsers();
   const [months, setMonths] = useState();
   const [selectedMonths, setSelectedMonths] = useState();
@@ -16,15 +16,18 @@ const CallsList = () => {
   const pageSize = 8;
 
   useEffect(() => {
-    API.fetchMonths.fetchMonths().then((data) => setMonths(data));
+    API.fetchMonths().then((data) => setMonths(data));
+    API.fetchCalls().then((data) => setCallsLog(data));
   }, []);
+
   useEffect(() => {
     setCurrentPage(1);
   }, [selectedMonths]);
+
   const filterCallsLogMonth = selectedMonths
     ? callsLog.filter((call) => call.month === selectedMonths)
     : callsLog;
-  const count = filterCallsLogMonth.length;
+  const count = filterCallsLogMonth?.length;
   const sortCallsLog = _.orderBy(
     filterCallsLogMonth,
     [sortBy.iter],
@@ -71,12 +74,26 @@ const CallsList = () => {
           )}
         </div>
         <div className="d-flex flex-column p-3">
-          <Table
-            users={users}
-            callsCrop={callsCrop}
-            onSort={handleSort}
-            currentSort={sortBy}
-          />
+          {callsLog ? (
+            <>
+              <Table
+                users={users}
+                callsCrop={callsCrop}
+                onSort={handleSort}
+                currentSort={sortBy}
+              />
+            </>
+          ) : (
+            <button className="btn btn" type="button" disabled>
+              <span
+                className="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              ></span>
+              Loading...
+            </button>
+          )}
+
           <div className="d-flex justify-content-center">
             <Pagination
               itemsCount={count}
