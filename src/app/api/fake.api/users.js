@@ -501,6 +501,10 @@ const users = [
   { id: "33599", name: "Абонент 499" },
 ];
 
-export function fetchUsers() {
-  return users;
-}
+const fetchUsers = () =>
+  new Promise((resolve) => {
+    window.setTimeout(function () {
+      resolve(users);
+    }, 2000);
+  });
+export default fetchUsers;

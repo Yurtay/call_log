@@ -1,10 +1,8 @@
 import React from "react";
-import API from "../../api";
 import TelephoneMenu from "../telephone/telephoneMenu";
 import TelephoneTable from "../telephone/telephoneTable";
 
 const TelephoneDirectory = () => {
-  const telephone = API.fetchUsers();
   return (
     <>
       <div className="d-flex">
@@ -13,7 +11,7 @@ const TelephoneDirectory = () => {
         </div>
         <div className="d-flex flex-column p-3">
           <div className="d-flex justify-content-center">
-            <TelephoneTable telephone={telephone} />
+            <TelephoneTable />
           </div>
         </div>
       </div>
