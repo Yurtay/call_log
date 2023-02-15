@@ -21,6 +21,6 @@ const fetchMonths = () =>
   new Promise((resolve) => {
     window.setTimeout(function () {
       resolve(months);
-    }, 2000);
+    });
   });
 export default fetchMonths;
