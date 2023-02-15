@@ -507,4 +507,28 @@ const fetchUsers = () =>
       resolve(users);
     }, 2000);
   });
-export default fetchUsers;
+
+const fetchUsersPHG = () =>
+  new Promise((resolve) => {
+    window.setTimeout(function () {
+      resolve(
+        users.filter(
+          (user) => Number(user.id) > 33199 || Number(user.id) > 33600
+        )
+      );
+    }, 2000);
+  });
+const fetchUsersUAVR = () =>
+  new Promise((resolve) => {
+    window.setTimeout(function () {
+      resolve(users.filter((user) => Number(user.id) < 33200));
+    }, 2000);
+  });
+const getById = (id) =>
+  new Promise((resolve) => {
+    window.setTimeout(function () {
+      resolve(users.find((user) => user.id === id));
+    }, 2000);
+  });
+
+export default { fetchUsers, fetchUsersPHG, fetchUsersUAVR, getById };

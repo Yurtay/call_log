@@ -1,10 +1,10 @@
 import fetchCalls from "./fake.api/callsLog";
-import fetchUsers from "./fake.api/users";
+import users from "./fake.api/users";
 import fetchMonths from "./fake.api/month";
 
 const API = {
   fetchCalls,
-  fetchUsers,
+  users,
   fetchMonths,
 };
 export default API;

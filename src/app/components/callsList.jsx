@@ -5,10 +5,11 @@ import API from "../api";
 import { paginate } from "../utils/paginate";
 import Pagination from "./pagination";
 import _ from "lodash";
+import Loading from "../utils/loading";
 
 const CallsList = () => {
   const [callsLog, setCallsLog] = useState();
-  const users = API.fetchUsers();
+  const [users, setUsers] = useState();
   const [months, setMonths] = useState();
   const [selectedMonths, setSelectedMonths] = useState();
   const [currentPage, setCurrentPage] = useState(1);
@@ -18,6 +19,7 @@ const CallsList = () => {
   useEffect(() => {
     API.fetchMonths().then((data) => setMonths(data));
     API.fetchCalls().then((data) => setCallsLog(data));
+    API.users.fetchUsers().then((data) => setUsers(data));
   }, []);
 
   useEffect(() => {
@@ -63,14 +65,7 @@ const CallsList = () => {
               onClearFilter={handleClearFilter}
             />
           ) : (
-            <button className="btn btn" type="button" disabled>
-              <span
-                className="spinner-border spinner-border-sm"
-                role="status"
-                aria-hidden="true"
-              ></span>
-              Loading...
-            </button>
+            <Loading />
           )}
         </div>
         <div className="d-flex flex-column p-3">
@@ -84,14 +79,7 @@ const CallsList = () => {
               />
             </>
           ) : (
-            <button className="btn btn" type="button" disabled>
-              <span
-                className="spinner-border spinner-border-sm"
-                role="status"
-                aria-hidden="true"
-              ></span>
-              Loading...
-            </button>
+            <Loading />
           )}
 
           <div className="d-flex justify-content-center">

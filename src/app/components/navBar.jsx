@@ -9,7 +9,10 @@ const NavBar = () => {
     <>
       <NavMenu />
       <Switch>
-        <Route path="/telephonedirectory" component={TelephoneDirectory} />
+        <Route
+          path="/telephonedirectory/:userId?"
+          component={TelephoneDirectory}
+        />
         <Route path="/" component={CallsList} />
         <Redirect to="/" />
       </Switch>

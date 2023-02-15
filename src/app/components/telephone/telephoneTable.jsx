@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from "react";
-import API from "../../api";
+import React from "react";
+import Loading from "../../utils/loading";
+import { Link } from "react-router-dom";
 
-const TelephoneTable = () => {
-  const [telephone, setTelephone] = useState();
-  useEffect(() => {
-    API.fetchUsers().then((data) => setTelephone(data));
-  }, []);
+const TelephoneTable = ({ telephone }) => {
   return (
     <>
       {telephone ? (
@@ -19,21 +16,18 @@ const TelephoneTable = () => {
           <tbody>
             {telephone.map((tel, index) => (
               <tr key={index}>
-                <td>{tel.id}</td>
-                <td>{tel.name}</td>
+                <td>
+                  <Link to={`/telephonedirectory/${tel.id}`}>{tel.id}</Link>
+                </td>
+                <td>
+                  <Link to={`/telephonedirectory/${tel.id}`}>{tel.name}</Link>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       ) : (
-        <button className="btn btn" type="button" disabled>
-          <span
-            className="spinner-border spinner-border-sm"
-            role="status"
-            aria-hidden="true"
-          ></span>
-          Loading...
-        </button>
+        <Loading />
       )}
     </>
   );
