@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
-import TelephoneMenu from "../telephone/telephoneMenu";
-import TelephoneTable from "../telephone/telephoneTable";
+import TelephoneMenu from "../ui/telephone/telephoneMenu";
+import TelephoneTable from "../ui/telephone/telephoneTable";
 import API from "../../api";
 import { useParams } from "react-router-dom";
-import UserPage from "../telephone/userPage";
+import UserPage from "../ui/telephone/userPage";
 
 const TelephoneDirectory = () => {
   const params = useParams();
   const { userId } = params;
-  console.log(userId);
   const [usersFlag, setUsersFlag] = useState(1);
   const [userPHG, setUserPHG] = useState();
   const [userUAVR, setUserUAVR] = useState();
@@ -21,7 +20,6 @@ const TelephoneDirectory = () => {
 
   const hadleChangeFlag = (id) => {
     setUsersFlag(id);
-    console.log(usersFlag);
   };
 
   return (

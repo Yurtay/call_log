@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import API from "../../api";
-import Loading from "../../utils/loading";
+import API from "../../../api";
+import Loading from "../../common/loading";
 import { useHistory } from "react-router-dom";
 
 const UserPage = ({ userId }) => {

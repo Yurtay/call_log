@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const NavMenu = () => {
+const NavBar = () => {
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
@@ -33,4 +33,4 @@ const NavMenu = () => {
   );
 };
 
-export default NavMenu;
+export default NavBar;

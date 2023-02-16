@@ -31,7 +31,7 @@ const TextField = ({ label, type, name, value, onChange, error }) => {
         )}
       </div>
 
-      {error && <div className="invalid-feedback">{error}</div>}
+      {error && <div>{error}</div>}
     </div>
   );
 };

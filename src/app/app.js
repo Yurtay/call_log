@@ -1,20 +1,20 @@
 import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
-import CallsList from "./layouts/callsList";
-import Login from "./layouts/login";
-import TelephoneDirectory from "./layouts/telephoneDirectory";
-import NavMenu from "./navMenu";
+import CallsList from "./components/layouts/callsList";
+import Login from "./components/layouts/login";
+import TelephoneDirectory from "./components/layouts/telephoneDirectory";
+import NavBar from "./components/ui/navBar";
 
-const NavBar = () => {
+const App = () => {
   return (
     <>
-      <NavMenu />
+      <NavBar />
       <Switch>
         <Route
           path="/telephonedirectory/:userId?"
           component={TelephoneDirectory}
         />
-        <Route path="/login" component={Login} />
+        <Route path="/login/:type?" component={Login} />
         <Route path="/" component={CallsList} />
         <Redirect to="/" />
       </Switch>
@@ -22,4 +22,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+export default App;

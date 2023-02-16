@@ -1,5 +1,5 @@
 import React from "react";
-import Loading from "../../utils/loading";
+import Loading from "../../common/loading";
 import { Link } from "react-router-dom";
 
 const TelephoneTable = ({ telephone }) => {
