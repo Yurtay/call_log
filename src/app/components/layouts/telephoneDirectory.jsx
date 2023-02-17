@@ -33,7 +33,7 @@ const TelephoneDirectory = () => {
         )
       ) : (
         <div className="d-flex">
-          <div className="d-flex flex-column flex-shrink-0 p-3">
+          <div className="d-flex flex-column flex-shrink-0 p-3 mt-1 shadow">
             <TelephoneMenu
               onChangeFlag={hadleChangeFlag}
               selectedItem={usersFlag}

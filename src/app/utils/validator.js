@@ -16,6 +16,13 @@ export function validator(data, config) {
         statusValidate = !capitalRegExp.test(data);
         break;
       }
+      case "isDigit": {
+        console.log(Number(data));
+        const digitRegExp = /^\d+$/;
+        statusValidate = !digitRegExp.test(Number(data));
+        break;
+      }
+
       case "isContainDigit": {
         const digitRegExp = /\d+/g;
         statusValidate = !digitRegExp.test(data);

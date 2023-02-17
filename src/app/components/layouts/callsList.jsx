@@ -58,31 +58,33 @@ const CallsList = () => {
       <div className="d-flex">
         <div className="d-flex flex-column flex-shrink-0 p-3">
           {months ? (
-            <GroupList
-              months={months}
-              onItemSelect={handleMonthsSelect}
-              selectedItem={selectedMonths}
-              onClearFilter={handleClearFilter}
-            />
+            <div className="shadow p-4">
+              <GroupList
+                months={months}
+                onItemSelect={handleMonthsSelect}
+                selectedItem={selectedMonths}
+                onClearFilter={handleClearFilter}
+              />
+            </div>
           ) : (
             <Loading />
           )}
         </div>
         <div className="d-flex flex-column p-3">
           {callsLog ? (
-            <>
+            <div className="shadow p-4">
               <Table
                 users={users}
                 callsCrop={callsCrop}
                 onSort={handleSort}
                 currentSort={sortBy}
               />
-            </>
+            </div>
           ) : (
             <Loading />
           )}
 
-          <div className="d-flex justify-content-center">
+          <div className="d-flex justify-content-center p-3">
             <Pagination
               itemsCount={count}
               pageSize={pageSize}

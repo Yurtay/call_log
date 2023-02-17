@@ -4,9 +4,11 @@ import TextField from "../../common/form/textfield";
 import API from "../../../api";
 import Loading from "../../common/loading";
 import { useHistory } from "react-router-dom";
+import { validator } from "../../../utils/validator";
 
 const UserPageEdit = ({ userId }) => {
   const history = useHistory();
+  const [erros, setErros] = useState({});
   const [user, setUser] = useState();
   const [data, setData] = useState({
     name: "",
@@ -28,12 +30,41 @@ const UserPageEdit = ({ userId }) => {
     API.users.getById(userId).then((data) => setUser(data));
   }, []);
 
+  const validatorConfig = {
+    name: {
+      isRequired: {
+        message: "Поле абонент не может быть пустым",
+      },
+    },
+    number: {
+      isRequired: {
+        message: "Не должно быть пустым",
+      },
+      isDigit: {
+        message: "Только цифры",
+      },
+    },
+  };
+  const validate = () => {
+    const erros = validator(data, validatorConfig);
+    setErros(erros);
+    return Object.keys(erros).length === 0;
+  };
+  useEffect(() => {
+    validate();
+  }, [data]);
+  const isValid = Object.keys(erros).length === 0;
+
   const handleSubmit = (event) => {
     event.preventDefault();
+    const isValid = validate();
+    if (!isValid) return;
     console.log(data);
-    // API.users.update(userId, { ...data }).then((data) => console.log(data));
+    API.users
+      .update(userId, { id: data.number, name: data.name, filial: data.filial })
+      .then((data) => console.log(data));
 
-    history.push(`/telephonedirectory/${userId}`);
+    history.push(`/telephonedirectory/${data.number}`);
   };
 
   return (
@@ -51,6 +82,7 @@ const UserPageEdit = ({ userId }) => {
                     value={data.name}
                     label="Абонент"
                     onChange={handleChange}
+                    error={erros.name}
                   />
                   <TextField
                     name="number"
@@ -58,6 +90,7 @@ const UserPageEdit = ({ userId }) => {
                     value={data.number}
                     label="Номер"
                     onChange={handleChange}
+                    error={erros.number}
                   />
                   <RadioField
                     options={[
@@ -71,6 +104,7 @@ const UserPageEdit = ({ userId }) => {
                     label=""
                   />
                   <button
+                    disabled={!isValid}
                     type="submit"
                     className="btn btn-primary w-100 mx-auto"
                   >
