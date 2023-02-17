@@ -11,7 +11,7 @@ const App = () => {
       <NavBar />
       <Switch>
         <Route
-          path="/telephonedirectory/:userId?"
+          path="/telephonedirectory/:userId?/:edit?"
           component={TelephoneDirectory}
         />
         <Route path="/login/:type?" component={Login} />

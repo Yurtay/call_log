@@ -4,10 +4,11 @@ import TelephoneTable from "../ui/telephone/telephoneTable";
 import API from "../../api";
 import { useParams } from "react-router-dom";
 import UserPage from "../ui/telephone/userPage";
+import UserPageEdit from "../ui/telephone/userPageEdit";
 
 const TelephoneDirectory = () => {
   const params = useParams();
-  const { userId } = params;
+  const { userId, edit } = params;
   const [usersFlag, setUsersFlag] = useState(1);
   const [userPHG, setUserPHG] = useState();
   const [userUAVR, setUserUAVR] = useState();
@@ -25,7 +26,11 @@ const TelephoneDirectory = () => {
   return (
     <>
       {userId ? (
-        <UserPage userId={userId} />
+        edit ? (
+          <UserPageEdit userId={userId} />
+        ) : (
+          <UserPage userId={userId} />
+        )
       ) : (
         <div className="d-flex">
           <div className="d-flex flex-column flex-shrink-0 p-3">
