@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import TextField from "../common/form/textfield";
 import { validator } from "../../utils/validator";
 
@@ -52,6 +52,15 @@ const LoginForm = () => {
     if (!isValid) return;
     console.log(data);
   };
+  const handleKeyDown = useCallback((event) => {
+    if (event.keyCode === 13) {
+      event.preventDefault();
+      const form = event.target.form;
+      const indexField = Array.prototype.indexOf.call(form, event.target);
+      form.elements[indexField + 1].focus();
+    }
+  }, []);
+
   return (
     <form onSubmit={handleSubmit}>
       <TextField
@@ -62,6 +71,7 @@ const LoginForm = () => {
         onChange={handleChange}
         error={erros.email}
         autoFocus
+        onKeyDown={handleKeyDown}
       />
       <TextField
         type="password"
@@ -70,6 +80,7 @@ const LoginForm = () => {
         label="Пароль"
         onChange={handleChange}
         error={erros.password}
+        onKeyDown={handleKeyDown}
       />
       <button disabled={!isValid} className="btn btn-primary w-100 mx-auto">
         Submit
