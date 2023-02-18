@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import RadioField from "../../common/form/radioField";
 import TextField from "../../common/form/textfield";
 import API from "../../../api";
@@ -67,6 +67,15 @@ const UserPageEdit = ({ userId }) => {
     history.push(`/telephonedirectory/${data.number}`);
   };
 
+  const handleKeyDown = useCallback((event) => {
+    if (event.keyCode === 13) {
+      event.preventDefault();
+      const form = event.target.form;
+      const indexField = Array.prototype.indexOf.call(form, event.target);
+      form.elements[indexField + 1].focus();
+    }
+  }, []);
+
   return (
     <div>
       {user ? (
@@ -83,6 +92,8 @@ const UserPageEdit = ({ userId }) => {
                     label="Абонент"
                     onChange={handleChange}
                     error={erros.name}
+                    autoFocus
+                    onKeyDown={handleKeyDown}
                   />
                   <TextField
                     name="number"
@@ -91,6 +102,7 @@ const UserPageEdit = ({ userId }) => {
                     label="Номер"
                     onChange={handleChange}
                     error={erros.number}
+                    onKeyDown={handleKeyDown}
                   />
                   <RadioField
                     options={[
@@ -102,6 +114,7 @@ const UserPageEdit = ({ userId }) => {
                     name="filial"
                     onChange={handleChange}
                     label=""
+                    onKeyDown={handleKeyDown}
                   />
                   <button
                     disabled={!isValid}

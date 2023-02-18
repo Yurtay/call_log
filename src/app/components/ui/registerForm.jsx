@@ -67,6 +67,7 @@ const RegisterForm = () => {
         label="Электронная почта"
         onChange={handleChange}
         error={erros.email}
+        autoFocus
       />
       <TextField
         type="password"

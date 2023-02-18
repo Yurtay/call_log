@@ -1,6 +1,6 @@
 import React from "react";
 
-const RadioField = ({ label, name, value, onChange, options }) => {
+const RadioField = ({ label, name, value, onChange, options, ...rest }) => {
   return (
     <div className="mb-4">
       <label htmlFor="form-label">{label}</label>
@@ -15,6 +15,7 @@ const RadioField = ({ label, name, value, onChange, options }) => {
             checked={option.value === value}
             value={option.value}
             onChange={onChange}
+            {...rest}
           />
           <label
             htmlFor={option.name + "_" + option.value}
