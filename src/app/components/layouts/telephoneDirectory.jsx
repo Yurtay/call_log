@@ -3,8 +3,8 @@ import TelephoneMenu from "../ui/telephone/telephoneMenu";
 import TelephoneTable from "../ui/telephone/telephoneTable";
 import API from "../../api";
 import { useParams } from "react-router-dom";
-import UserPage from "../ui/telephone/userPage";
-import UserPageEdit from "../ui/telephone/userPageEdit";
+import UserPage from "../ui/telephone/userPage/userPage";
+import UserPageEdit from "../ui/telephone/userPage/userPageEdit";
 
 const TelephoneDirectory = () => {
   const params = useParams();

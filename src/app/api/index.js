@@ -1,9 +1,9 @@
-import fetchCalls from "./fake.api/callsLog";
+import callsLog from "./fake.api/callsLog";
 import users from "./fake.api/users";
 import fetchMonths from "./fake.api/month";
 
 const API = {
-  fetchCalls,
+  callsLog,
   users,
   fetchMonths,
 };

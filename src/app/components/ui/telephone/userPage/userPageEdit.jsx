@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useState } from "react";
-import RadioField from "../../common/form/radioField";
-import TextField from "../../common/form/textfield";
-import API from "../../../api";
-import Loading from "../../common/loading";
+import RadioField from "../../../common/form/radioField";
+import TextField from "../../../common/form/textfield";
+import API from "../../../../api";
+import Loading from "../../../common/loading";
 import { useHistory } from "react-router-dom";
-import { validator } from "../../../utils/validator";
+import { validator } from "../../../../utils/validator";
 
 const UserPageEdit = ({ userId }) => {
   const history = useHistory();
@@ -129,13 +129,7 @@ const UserPageEdit = ({ userId }) => {
           </div>
         </>
       ) : (
-        <div className="container mt-5">
-          <div className="row">
-            <div className="col-md-6 offset-md-3 shadow p-4">
-              <Loading />
-            </div>
-          </div>
-        </div>
+        <Loading />
       )}
     </div>
   );

@@ -217,4 +217,12 @@ const fetchCalls = () =>
       resolve(calls);
     }, 2000);
   });
-export default fetchCalls;
+
+const fetchCallsByNumber = (numb) =>
+  new Promise((resolve) => {
+    window.setTimeout(function () {
+      resolve(calls.filter((call) => call.numberOne === numb));
+    }, 2000);
+  });
+
+export default { fetchCalls, fetchCallsByNumber };

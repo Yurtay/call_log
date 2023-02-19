@@ -1,14 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Loading from "../../common/loading";
 import { Link } from "react-router-dom";
 
 const TelephoneTable = ({ telephone }) => {
+  const [searchNumber, setSearchNumber] = useState("");
+  const [telephoneUsers, setTelephoneUsers] = useState();
+  const handleSearchNumber = ({ target }) => {
+    setSearchNumber(target.value);
+  };
+  useEffect(() => {
+    setTelephoneUsers(telephone);
+  }, [telephone]);
+
+  const users = searchNumber
+    ? telephoneUsers.filter(
+        (numb) =>
+          numb.id.toLowerCase().indexOf(searchNumber.toLowerCase()) !== -1
+      )
+    : telephoneUsers;
+
   return (
     <>
-      {telephone ? (
+      {telephoneUsers ? (
         <div className="container mt-1 shadow">
           <div className="row">
-            {/* <div className="col-md-6 offset-md-3 shadow p-4"> */}
+            <input
+              type="text"
+              name="search"
+              placeholder="Поиск по номеру телефона..."
+              onChange={handleSearchNumber}
+              value={searchNumber}
+            />
             <table className="table">
               <thead>
                 <tr>
@@ -17,7 +39,7 @@ const TelephoneTable = ({ telephone }) => {
                 </tr>
               </thead>
               <tbody>
-                {telephone.map((tel, index) => (
+                {users.map((tel, index) => (
                   <tr key={index}>
                     <td>
                       <Link to={`/telephonedirectory/${tel.id}`}>{tel.id}</Link>
@@ -31,7 +53,6 @@ const TelephoneTable = ({ telephone }) => {
                 ))}
               </tbody>
             </table>
-            {/* </div> */}
           </div>
         </div>
       ) : (
