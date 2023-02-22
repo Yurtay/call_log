@@ -11,7 +11,7 @@ const NavBar = () => {
               <Link
                 className="nav-link active"
                 aria-current="page"
-                to="callslog"
+                to="callslist"
               >
                 Журнал вызовов
               </Link>

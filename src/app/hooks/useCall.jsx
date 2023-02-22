@@ -36,7 +36,6 @@ const CallProvider = ({ children }) => {
     setError(message);
     setLoading(false);
   }
-  console.log("userCall", calls);
 
   return (
     <CallContext.Provider value={{ calls }}>

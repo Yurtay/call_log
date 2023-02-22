@@ -13,14 +13,4 @@ const months = [
   { monthNumber: "12", monthName: "Декабрь" },
 ];
 
-// export function fetchMonths() {
-//   return months;
-// }
-
-const fetchMonths = () =>
-  new Promise((resolve) => {
-    window.setTimeout(function () {
-      resolve(months);
-    });
-  });
-export default fetchMonths;
+export default months;

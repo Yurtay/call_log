@@ -1,6 +1,7 @@
 import React from "react";
+import months from "../../api/fake.api/months";
 
-const GroupList = ({ months, onItemSelect, selectedItem, onClearFilter }) => {
+const GroupList = ({ onItemSelect, selectedItem, onClearFilter }) => {
   return (
     <>
       <ul className="list-group">

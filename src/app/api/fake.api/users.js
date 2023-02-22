@@ -538,6 +538,14 @@ const fetchUsersUAVR = () =>
       );
     }, 2000);
   });
+const update = (id, data) =>
+  new Promise((resolve) => {
+    const users = JSON.parse(localStorage.getItem("users"));
+    const userIndex = users.findIndex((u) => u.id === id);
+    users[userIndex] = { ...users[userIndex], ...data };
+    localStorage.setItem("users", JSON.stringify(users));
+    resolve(users[userIndex]);
+  });
 // const fetchUsers = () =>
 //   new Promise((resolve) => {
 //     window.setTimeout(function () {
@@ -559,4 +567,4 @@ const fetchUsersUAVR = () =>
 //     }, 2000);
 //   });
 
-export default { fetchUsers, fetchUsersPHG, fetchUsersUAVR, getById };
+export default { fetchUsers, fetchUsersPHG, fetchUsersUAVR, getById, update };

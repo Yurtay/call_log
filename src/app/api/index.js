@@ -1,6 +1,6 @@
 import fetchCalls from "./fake.api/callsLog";
 import users from "./fake.api/users";
-import fetchMonths from "./fake.api/month";
+import fetchMonths from "./fake.api/months";
 
 const API = {
   fetchCalls,

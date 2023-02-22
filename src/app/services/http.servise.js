@@ -6,7 +6,6 @@ axios.defaults.baseURL = configFile.apiEndpoint;
 
 axios.interceptors.request.use(
   function (config) {
-    console.log("config", config.url);
     if (configFile.isFireBase) {
       const containSlash = /\/$/gi.test(config.url);
       config.url =

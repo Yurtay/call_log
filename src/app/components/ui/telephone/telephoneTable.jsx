@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useUser } from "../../../hooks/useUser";
 
@@ -8,11 +8,9 @@ const TelephoneTable = () => {
   const handleSearchNumber = ({ target }) => {
     setSearchNumber(target.value);
   };
+
   const getFilterUsers = searchNumber
-    ? users.filter(
-        (numb) =>
-          numb.id.toLowerCase().indexOf(searchNumber.toLowerCase()) !== -1
-      )
+    ? users.filter((numb) => numb.id.indexOf(searchNumber) !== -1)
     : users;
   console.log(getFilterUsers);
   return (
