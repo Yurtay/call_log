@@ -1,34 +1,53 @@
-import React from "react";
-import Loading from "../../common/loading";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useUser } from "../../../hooks/useUser";
 
-const TelephoneTable = ({ telephone }) => {
+const TelephoneTable = () => {
+  const { users } = useUser();
+  const [searchNumber, setSearchNumber] = useState("");
+  const handleSearchNumber = ({ target }) => {
+    setSearchNumber(target.value);
+  };
+  const getFilterUsers = searchNumber
+    ? users.filter(
+        (numb) =>
+          numb.id.toLowerCase().indexOf(searchNumber.toLowerCase()) !== -1
+      )
+    : users;
+  console.log(getFilterUsers);
   return (
     <>
-      {telephone ? (
-        <table className="table">
-          <thead>
-            <tr>
-              <th scope="col">Телефон</th>
-              <th scope="col">Абонент</th>
-            </tr>
-          </thead>
-          <tbody>
-            {telephone.map((tel, index) => (
-              <tr key={index}>
-                <td>
-                  <Link to={`/telephonedirectory/${tel.id}`}>{tel.id}</Link>
-                </td>
-                <td>
-                  <Link to={`/telephonedirectory/${tel.id}`}>{tel.name}</Link>
-                </td>
+      <div className="container mt-1 shadow">
+        <div className="row">
+          <input
+            type="text"
+            name="search"
+            placeholder="Поиск по номеру телефона..."
+            onChange={handleSearchNumber}
+            value={searchNumber}
+          />
+          <table className="table">
+            <thead>
+              <tr>
+                <th scope="col">Телефон</th>
+                <th scope="col">Абонент</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      ) : (
-        <Loading />
-      )}
+            </thead>
+            <tbody>
+              {getFilterUsers.map((tel, index) => (
+                <tr key={index}>
+                  <td>
+                    <Link to={`/telephonedirectory/${tel.id}`}>{tel.id}</Link>
+                  </td>
+                  <td>
+                    <Link to={`/telephonedirectory/${tel.id}`}>{tel.name}</Link>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </>
   );
 };

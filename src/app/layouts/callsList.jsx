@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import GroupList from "../ui/listGroupDate";
-import Table from "../ui/table/table";
-import API from "../../api";
-import { paginate } from "../../utils/paginate";
-import Pagination from "../common/pagination";
+import GroupList from "../components/ui/listGroupDate";
+import Table from "../components/ui/table/table";
+import API from "../api";
+import { paginate } from "../utils/paginate";
+import Pagination from "../components/common/pagination";
 import _ from "lodash";
-import Loading from "../common/loading";
+import Loading from "../components/common/loading";
 
 const CallsList = () => {
   const [callsLog, setCallsLog] = useState();
