@@ -11,18 +11,18 @@ const NavBar = () => {
               <Link
                 className="nav-link active"
                 aria-current="page"
-                to="callslist"
+                to="/callslist"
               >
                 Журнал вызовов
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="telephonedirectory">
+              <Link className="nav-link" to="/telephonedirectory">
                 Справочник
               </Link>
             </li>
             <li className="nav-item dropdown">
-              <Link className="nav-link" to="login">
+              <Link className="nav-link" to="/login">
                 Вход
               </Link>
             </li>

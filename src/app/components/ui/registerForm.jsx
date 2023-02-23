@@ -10,7 +10,6 @@ const RegisterForm = () => {
   const [data, setData] = useState({
     email: "",
     password: "",
-    filial: "КУПХГ",
   });
   const { signUp } = useAuth();
   const [erros, setErros] = useState({});
@@ -86,16 +85,7 @@ const RegisterForm = () => {
         onChange={handleChange}
         error={erros.password}
       />
-      <RadioField
-        options={[
-          { name: "КУПХГ", value: "kuphg" },
-          { name: "БУАВР", value: "buavr" },
-          { name: "Внешние абоненты", value: "other" },
-        ]}
-        value={data.filial}
-        name="filial"
-        onChange={handleChange}
-      />
+
       <button disabled={!isValid} className="btn btn-primary w-100 mx-auto">
         Submit
       </button>

@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import RadioField from "../../common/form/radioField";
 import TextField from "../../common/form/textfield";
-import API from "../../../api";
 import Loading from "../../common/loading";
 import { useHistory } from "react-router-dom";
+import httpService from "../../../services/http.servise";
+import { useUser } from "../../../hooks/useUser";
 
 const UserPageEdit = ({ userId }) => {
   const history = useHistory();
-  const [user, setUser] = useState();
+  // const [user, setUser] = useState();
   const [data, setData] = useState({
     name: "",
-    number: "",
+    id: "",
     filial: "",
   });
   const handleChange = ({ target }) => {
@@ -19,23 +20,23 @@ const UserPageEdit = ({ userId }) => {
       [target.name]: target.value,
     }));
   };
-  useEffect(() => {
-    if (user)
-      setData({ name: user.name, number: user.id, filial: user.filial });
-  }, [user]);
+  const getById = (id) => users.find((user) => user.id === id);
+  const user = getById(userId);
+  console.log(user);
+  // useEffect(() => {
+  //   if (user) setData({ name: user.name, id: user.id, filial: user.filial });
+  // }, []);
 
-  useEffect(() => {
-    API.users.getById(userId).then((data) => setUser(data));
-  }, []);
-
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(data);
-    // API.users.update(userId, { ...data }).then((data) => console.log(data));
-
-    history.push(`/telephonedirectory/${userId}`);
+    try {
+      await httpService.put("user/" + data.id, data);
+      // console.log(data);
+      // history.push(`/telephonedirectory/${userId}`);
+    } catch (error) {
+      setErros(error);
+    }
   };
-
   return (
     <div>
       {user ? (
@@ -53,9 +54,9 @@ const UserPageEdit = ({ userId }) => {
                     onChange={handleChange}
                   />
                   <TextField
-                    name="number"
+                    name="id"
                     type="text"
-                    value={data.number}
+                    value={data.id}
                     label="Номер"
                     onChange={handleChange}
                   />

@@ -6,22 +6,25 @@ import TelephoneDirectory from "./layouts/telephoneDirectory";
 import NavBar from "./components/ui/navBar";
 import { ToastContainer } from "react-toastify";
 import Main from "./layouts/main";
+import AuthProvider from "./hooks/useAuth";
 
 const App = () => {
   return (
     <>
-      <NavBar />
-      <Switch>
-        <Route path="/login/:type?" component={Login} />
-        <Route path="/callslist" component={CallsList} />
-        <Route
-          path="/telephonedirectory/:userId?/:edit?"
-          component={TelephoneDirectory}
-        />
-        <Route path="/" component={Main} />
-        <Redirect to="/" />
-      </Switch>
-      <ToastContainer />
+      <AuthProvider>
+        <NavBar />
+        <Switch>
+          <Route path="/login/:type?" component={Login} />
+          <Route path="/callslist" component={CallsList} />
+          <Route
+            path="/telephonedirectory/:userId?/:edit?"
+            component={TelephoneDirectory}
+          />
+          <Route path="/" component={Main} />
+          <Redirect to="/" />
+        </Switch>
+        <ToastContainer />
+      </AuthProvider>
     </>
   );
 };

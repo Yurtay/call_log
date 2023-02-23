@@ -1,4 +1,5 @@
 import httpService from "./http.servise";
+import localStorageService from "./localStorage.service";
 
 const reguserEndpoint = "reguser/";
 
@@ -8,10 +9,15 @@ const reguserService = {
     return data;
   },
   create: async (payload) => {
-    console.log("payload", payload);
     const { data } = await httpService.put(
       reguserEndpoint + payload.id,
       payload
+    );
+    return data;
+  },
+  getCurrentUser: async () => {
+    const { data } = await httpService.get(
+      reguserEndpoint + localStorageService.getUserId()
     );
     return data;
   },

@@ -1,17 +1,13 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import RadioField from "../../../common/form/radioField";
 import TextField from "../../../common/form/textfield";
 import { useHistory } from "react-router-dom";
 import { validator } from "../../../../utils/validator";
-import { useUser } from "../../../../hooks/useUser";
 import httpService from "../../../../services/http.servise";
 
-const UserPageEdit = ({ userId }) => {
+const NewUser = () => {
   const history = useHistory();
   const [erros, setErros] = useState({});
-  const { users } = useUser();
-  const getById = (id) => users.find((user) => user.id === id);
-  const user = getById(userId);
   const [data, setData] = useState({
     name: "",
     id: "",
@@ -23,9 +19,6 @@ const UserPageEdit = ({ userId }) => {
       [target.name]: target.value,
     }));
   };
-  useEffect(() => {
-    if (user) setData({ name: user.name, id: user.id, filial: user.filial });
-  }, [user]);
 
   const validatorConfig = {
     name: {
@@ -33,7 +26,7 @@ const UserPageEdit = ({ userId }) => {
         message: "Поле абонент не может быть пустым",
       },
     },
-    number: {
+    id: {
       isRequired: {
         message: "Не должно быть пустым",
       },
@@ -56,31 +49,20 @@ const UserPageEdit = ({ userId }) => {
     event.preventDefault();
     const isValid = validate();
     if (!isValid) return;
-
     try {
       await httpService.put("user/" + data.id, data);
-      console.log(data);
-      history.push(`/telephonedirectory`);
+      history.push("/telephonedirectory");
     } catch (error) {
       setErros(error);
     }
   };
-
-  const handleKeyDown = useCallback((event) => {
-    if (event.keyCode === 13) {
-      event.preventDefault();
-      const form = event.target.form;
-      const indexField = Array.prototype.indexOf.call(form, event.target);
-      form.elements[indexField + 1].focus();
-    }
-  }, []);
 
   return (
     <>
       <div className="container mt-5">
         <div className="row">
           <div className="col-md-6 offset-md-3 shadow p-4">
-            <h2>Редактирование абонентов</h2>
+            <h2>Добавление нового абонента</h2>
             <form onSubmit={handleSubmit}>
               <TextField
                 name="name"
@@ -90,7 +72,6 @@ const UserPageEdit = ({ userId }) => {
                 onChange={handleChange}
                 error={erros.name}
                 autoFocus
-                onKeyDown={handleKeyDown}
               />
               <TextField
                 name="id"
@@ -98,8 +79,7 @@ const UserPageEdit = ({ userId }) => {
                 value={data.id}
                 label="Номер"
                 onChange={handleChange}
-                error={erros.number}
-                onKeyDown={handleKeyDown}
+                error={erros.id}
               />
               <RadioField
                 options={[
@@ -111,14 +91,13 @@ const UserPageEdit = ({ userId }) => {
                 name="filial"
                 onChange={handleChange}
                 label=""
-                onKeyDown={handleKeyDown}
               />
               <button
                 disabled={!isValid}
                 type="submit"
                 className="btn btn-primary w-100 mx-auto"
               >
-                Сохранить
+                Добавить
               </button>
             </form>
           </div>
@@ -128,4 +107,4 @@ const UserPageEdit = ({ userId }) => {
   );
 };
 
-export default UserPageEdit;
+export default NewUser;

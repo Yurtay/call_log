@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-// import users from "../mockData/users.json";
+import users from "../mockData/users.json";
 import calls from "../mockData/calls.json";
 import httpService from "../services/http.servise";
 
@@ -14,8 +14,7 @@ const useMockData = () => {
   const [status, setStatus] = useState(statusConsts.idle);
   const [progress, setProgress] = useState(0);
   const [count, setCount] = useState(0);
-  //   const summaryCount = users.length;
-  const summaryCount = calls.length;
+  const summaryCount = users.length + calls.length;
   const incrementCount = () => {
     setCount((prevState) => prevState + 1);
   };
@@ -37,10 +36,10 @@ const useMockData = () => {
   }, [count]);
   async function initialize() {
     try {
-      //   for (const user of users) {
-      //     await httpService.put("user/" + user.id, user);
-      //     incrementCount();
-      //   }
+      for (const user of users) {
+        await httpService.put("user/" + user.id, user);
+        incrementCount();
+      }
       for (const call of calls) {
         await httpService.put("call/" + call._id, call);
         incrementCount();

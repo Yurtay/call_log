@@ -2,11 +2,13 @@ import React, { useContext, useState, useEffect } from "react";
 import axios from "axios";
 import reguserService from "../services/regUser.service";
 import { toast } from "react-toastify";
-import { setTokens } from "../services/localStorage.service";
+import localStorageService, {
+  setTokens,
+} from "../services/localStorage.service";
 
 // const url = `https://identitytoolkit.googleapis.com/v1/?key=${process.env.REACT_APP_FIREBASE_KEY}`;
 const AuthContext = React.createContext();
-const httpAuth = axios.create({
+export const httpAuth = axios.create({
   baseURL: "https://identitytoolkit.googleapis.com/v1/",
   params: {
     key: process.env.REACT_APP_FIREBASE_KEY,
@@ -17,7 +19,7 @@ export const useAuth = () => {
 };
 
 const AuthProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState({});
+  const [currentUser, setCurrentUser] = useState();
   const [error, setError] = useState(null);
 
   async function logIn({ email, password }) {
@@ -28,6 +30,7 @@ const AuthProvider = ({ children }) => {
         returnSecureToken: true,
       });
       setTokens(data);
+      getUserData();
     } catch (error) {
       errorCatcher(error);
       const { code, message } = error.response.data.error;
@@ -69,7 +72,7 @@ const AuthProvider = ({ children }) => {
   }
   async function createRegUser(data) {
     try {
-      const { content } = reguserService.create(data);
+      const { content } = await reguserService.create(data);
       setCurrentUser(content);
     } catch (error) {
       errorCatcher(error);
@@ -79,6 +82,23 @@ const AuthProvider = ({ children }) => {
     const { message } = error.response.data;
     setError(message);
   }
+
+  async function getUserData() {
+    try {
+      const { content } = await reguserService.getCurrentUser();
+
+      setCurrentUser(content);
+    } catch (error) {
+      errorCatcher(error);
+    }
+  }
+
+  useEffect(() => {
+    if (localStorageService.getAccessToken()) {
+      getUserData();
+    }
+  }, []);
+
   useEffect(() => {
     if (error !== null) {
       toast(error);

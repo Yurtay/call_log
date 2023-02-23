@@ -4,7 +4,7 @@ import { useCall } from "../../../../hooks/useCall";
 const LastCalls = ({ userId }) => {
   const { calls } = useCall();
   const lastCalls = calls.filter((call) => call.numberOne === userId);
-  console.log("lastCalls", lastCalls);
+
   return (
     <>
       {lastCalls.length === 0 ? (
