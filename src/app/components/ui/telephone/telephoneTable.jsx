@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useUser } from "../../../hooks/useUser";
 
@@ -12,7 +12,7 @@ const TelephoneTable = () => {
   const getFilterUsers = searchNumber
     ? users.filter((numb) => numb.id.indexOf(searchNumber) !== -1)
     : users;
-  console.log(getFilterUsers);
+
   return (
     <>
       <div className="container mt-1 shadow">

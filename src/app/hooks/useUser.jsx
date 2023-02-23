@@ -15,6 +15,11 @@ const UserProvider = ({ children }) => {
   useEffect(() => {
     getUsers();
   }, []);
+  function errorCatcher(error) {
+    const { message } = error.response.data;
+    setError(message);
+    setLoading(false);
+  }
   useEffect(() => {
     if (error !== null) {
       toast(error);
@@ -30,11 +35,6 @@ const UserProvider = ({ children }) => {
     } catch (error) {
       errorCatcher(error);
     }
-  }
-  function errorCatcher(error) {
-    const { message } = error.response.data;
-    setError(message);
-    setLoading(false);
   }
 
   return (

@@ -2,13 +2,17 @@ import React, { useState, useEffect } from "react";
 import TextField from "../common/form/textfield";
 import { validator } from "../../utils/validator";
 import RadioField from "../common/form/radioField";
+import { useAuth } from "../../hooks/useAuth";
+import { useHistory } from "react-router-dom";
 
 const RegisterForm = () => {
+  const history = useHistory();
   const [data, setData] = useState({
     email: "",
     password: "",
     filial: "КУПХГ",
   });
+  const { signUp } = useAuth();
   const [erros, setErros] = useState({});
   const handleChange = ({ target }) => {
     setData((prevState) => ({
@@ -52,11 +56,17 @@ const RegisterForm = () => {
     validate();
   }, [data]);
   const isValid = Object.keys(erros).length === 0;
-  const handleSubmit = (event) => {
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const isValid = validate();
     if (!isValid) return;
-    console.log(data);
+    try {
+      await signUp(data);
+      history.push("/");
+    } catch (error) {
+      setErros(error);
+    }
   };
   return (
     <form onSubmit={handleSubmit}>
