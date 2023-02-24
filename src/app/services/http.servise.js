@@ -32,7 +32,6 @@ http.interceptors.request.use(
       if (accessToken) {
         config.params = { ...config.params, auth: accessToken };
       }
-      console.log("config.params", config);
     }
 
     return config;

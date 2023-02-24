@@ -7,6 +7,8 @@ import NavBar from "./components/ui/navBar";
 import { ToastContainer } from "react-toastify";
 import Main from "./layouts/main";
 import AuthProvider from "./hooks/useAuth";
+import ProtectedRoute from "./components/common/protectedRoute";
+import LogOut from "./layouts/logOut";
 
 const App = () => {
   return (
@@ -15,11 +17,12 @@ const App = () => {
         <NavBar />
         <Switch>
           <Route path="/login/:type?" component={Login} />
-          <Route path="/callslist" component={CallsList} />
-          <Route
+          <ProtectedRoute path="/callslist" component={CallsList} />
+          <ProtectedRoute
             path="/telephonedirectory/:userId?/:edit?"
             component={TelephoneDirectory}
           />
+          <Route path="/logout" component={LogOut} />
           <Route path="/" component={Main} />
           <Redirect to="/" />
         </Switch>

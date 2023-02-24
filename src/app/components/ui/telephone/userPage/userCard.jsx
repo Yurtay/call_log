@@ -4,7 +4,6 @@ import { useHistory } from "react-router-dom";
 
 const UserCard = ({ user }) => {
   const history = useHistory();
-  const avatar = avt;
   const handlePageBack = () => {
     history.push("/telephonedirectory");
   };
@@ -27,7 +26,7 @@ const UserCard = ({ user }) => {
     <div className="card mb-3">
       <div className="card-body">
         <div className="d-flex flex-column align-items-center text-center position-relative">
-          <img src={avatar} className="rounded-circle" width="150" />
+          <img src={avt} className="rounded-circle" width="150" />
 
           <div className="mt-3">
             <h4>{user.name}</h4>
