@@ -27,10 +27,12 @@ http.interceptors.request.use(
           localId: data.user_id,
         });
       }
-      // const accessToken = localStorageService.getAccessToken();
-      // if (accessToken) {
-      //     config.params = { ...config.params, auth: accessToken };
-      // }
+      const accessToken = localStorageService.getAccessToken();
+
+      if (accessToken) {
+        config.params = { ...config.params, auth: accessToken };
+      }
+      console.log("config.params", config);
     }
 
     return config;
