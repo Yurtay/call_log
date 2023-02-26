@@ -1,11 +1,17 @@
-import React, { seEffect, useState } from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { useUser } from "../../../hooks/useUser";
-import httpService from "../../../services/http.servise";
+import {
+  deleteUser,
+  getUsers,
+  getUsersLoadingStatus,
+} from "../../../store/users";
 
 const TelephoneTable = ({ currentList }) => {
-  const { users } = useUser();
+  const users = useSelector(getUsers());
+  const isLoading = useSelector(getUsersLoadingStatus());
   const [searchNumber, setSearchNumber] = useState("");
+  const dispatch = useDispatch();
   const handleSearchNumber = ({ target }) => {
     setSearchNumber(target.value);
   };
@@ -24,10 +30,10 @@ const TelephoneTable = ({ currentList }) => {
     : filterUsers;
 
   const handleDeleteUser = async (id) => {
-    await httpService.delete("user/" + id);
+    dispatch(deleteUser(id));
     console.log(id);
   };
-
+  if (isLoading) return "Loading users...";
   return (
     <>
       <div className="d-flex justify-content-center">

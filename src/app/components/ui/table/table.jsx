@@ -4,12 +4,15 @@ import TableHeader from "./tableHeader";
 import { paginate } from "../../../utils/paginate";
 import Pagination from "../../../components/common/pagination";
 import _ from "lodash";
-import { useUser } from "../../../hooks/useUser";
-import { useCall } from "../../../hooks/useCall";
+import { useSelector } from "react-redux";
+import { getUsers, getUsersLoadingStatus } from "../../../store/users";
+import { getCalls, getCallsLoadingStatus } from "../../../store/calls";
 
 const Table = ({ selectedMonths, currentPage, onPageChange }) => {
-  const { users } = useUser();
-  const { calls } = useCall();
+  const users = useSelector(getUsers());
+  const calls = useSelector(getCalls());
+  const isLoadingUsers = useSelector(getUsersLoadingStatus());
+  const isLoadingCalls = useSelector(getCallsLoadingStatus());
   const [searchNumber, setSearchNumber] = useState("");
   const [sortBy, setSortBy] = useState({ iter: "date", order: "asc" });
   const pageSize = 100;
@@ -32,7 +35,7 @@ const Table = ({ selectedMonths, currentPage, onPageChange }) => {
     [sortBy.order]
   );
   const callsCrop = paginate(sortCallsLog, currentPage, pageSize);
-
+  if (isLoadingCalls && isLoadingUsers) return "Loading users and calls...";
   return (
     <>
       <input
@@ -57,9 +60,3 @@ const Table = ({ selectedMonths, currentPage, onPageChange }) => {
 };
 
 export default Table;
-
-{
-  /* <div className="d-flex justify-content-center">
-
-</div> */
-}

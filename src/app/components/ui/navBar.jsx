@@ -1,33 +1,59 @@
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { useAuth } from "../../hooks/useAuth";
+import { getRegUser } from "../../store/regUser";
 import NavProfile from "./navProfile";
+import phg from "../../img/phg.png";
+import DateNow from "../../utils/dateNow";
 
 const NavBar = () => {
-  const { currentUser } = useAuth();
-  console.log("currentUser", currentUser);
-  return (
-    <nav className="navbar bg-light mb-3">
-      <div className="container-fluid">
-        <h4> Канчуринское УПХГ</h4>
+  const currentUser = useSelector(getRegUser());
 
-        <ul className="nav">
-          <li className="nav-item">
-            <Link className="nav-link" aria-current="page" to="/callslist">
-              Журнал вызовов
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/telephonedirectory">
-              Справочник
-            </Link>
-          </li>
-        </ul>
+  return (
+    <nav className="navbar navbar-light bg-light m-3">
+      <div className="container-fluid">
+        <img src={phg} alt="" className="d-inline-block align-text-top" />
+
         {currentUser ? (
-          <NavProfile />
+          <ul className="nav">
+            <li className="nav-item">
+              <button type="button" className="btn btn-outline-primary me-2">
+                <Link className="nav-link text-dark" aria-current="page" to="/">
+                  Главная
+                </Link>
+              </button>
+            </li>
+            <li className="nav-item">
+              <button type="button" className="btn btn-outline-primary me-2">
+                <Link
+                  className="nav-link text-dark"
+                  aria-current="page"
+                  to="/callslist"
+                >
+                  Журнал вызовов
+                </Link>
+              </button>
+            </li>
+            <li className="nav-item">
+              <button type="button" className="btn btn-outline-primary me-2">
+                <Link className="nav-link text-dark" to="/telephonedirectory">
+                  Справочник
+                </Link>
+              </button>
+            </li>
+          </ul>
         ) : (
-          <Link className="nav-link" to="/login">
-            Вход
-          </Link>
+          <h1 className="text-primary">
+            <DateNow />
+          </h1>
+        )}
+        {currentUser ? (
+          <NavProfile currentUser={currentUser} />
+        ) : (
+          <button type="button" className="btn btn-outline-primary me-2">
+            <Link className="nav-link text-dark" to="/login">
+              Войти
+            </Link>
+          </button>
         )}
       </div>
     </nav>

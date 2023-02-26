@@ -1,8 +1,11 @@
 import React from "react";
-import { useCall } from "../../../../hooks/useCall";
+import { useSelector } from "react-redux";
+// import { useCall } from "../../../../hooks/useCall";
+import { getCalls } from "../../../../store/calls";
 
 const LastCalls = ({ userId }) => {
-  const { calls } = useCall();
+  // const { calls } = useCall();
+  const calls = useSelector(getCalls());
   const lastCalls = calls.filter((call) => call.numberOne === userId);
 
   return (

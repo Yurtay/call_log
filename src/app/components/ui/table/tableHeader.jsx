@@ -14,7 +14,7 @@ const TableHeader = ({ onSort, currentSort }) => {
 
   return (
     <>
-      <thead className="table-dark">
+      <thead className="table-primary">
         <tr>
           <th scope="col">#</th>
           <th onClick={() => handleSort("date")} scope="col" role="button">

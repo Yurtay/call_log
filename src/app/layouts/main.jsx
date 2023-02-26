@@ -1,24 +1,30 @@
 import React from "react";
-import useMockData from "../utils/mockData";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { getRegUser } from "../store/regUser";
 
 const Main = () => {
-  const { error, initialize, progress, status } = useMockData();
-  const handleClick = () => {
-    initialize();
-  };
+  const currentUser = useSelector(getRegUser());
   return (
-    <div className="container mt-5">
-      <h1> Main Page</h1>
-      <h3>Инициализация данных в FireBase</h3>
-      <ul>
-        <li>Status: {status}</li>
-        <li>Progress: {progress}%</li>
-        {error && <li>Error: {error}</li>}
-      </ul>
-      <button className="btn btn-primary" onClick={handleClick}>
-        {" "}
-        Инициализировать
-      </button>
+    <div className="container m-5 p-5 shadow">
+      <hr />
+      {currentUser ? (
+        <div>
+          <h5>
+            Добро пожаловать:
+            <span className="text-primary">{currentUser.email}</span>
+          </h5>
+          <Link to="/callslist">
+            <button className="btn btn-primary">
+              Перейти к просмотру журнала....
+            </button>
+          </Link>
+        </div>
+      ) : (
+        <h5>Для просмотра журнала звонков необходимо войти в систему... </h5>
+      )}
+
+      <hr />
     </div>
   );
 };

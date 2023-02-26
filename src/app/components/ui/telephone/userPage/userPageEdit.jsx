@@ -1,15 +1,14 @@
 import React, { useCallback, useEffect, useState } from "react";
 import RadioField from "../../../common/form/radioField";
 import TextField from "../../../common/form/textfield";
-import { useHistory } from "react-router-dom";
 import { validator } from "../../../../utils/validator";
-import { useUser } from "../../../../hooks/useUser";
-import httpService from "../../../../services/http.servise";
+import { useDispatch, useSelector } from "react-redux";
+import { getUsers, updateUser } from "../../../../store/users";
 
 const UserPageEdit = ({ userId }) => {
-  const history = useHistory();
+  const dispatch = useDispatch();
   const [erros, setErros] = useState({});
-  const { users } = useUser();
+  const users = useSelector(getUsers());
   const getById = (id) => users.find((user) => user.id === id);
   const user = getById(userId);
   const [data, setData] = useState({
@@ -56,14 +55,7 @@ const UserPageEdit = ({ userId }) => {
     event.preventDefault();
     const isValid = validate();
     if (!isValid) return;
-
-    try {
-      await httpService.put("user/" + data.id, data);
-      console.log(data);
-      history.push(`/telephonedirectory`);
-    } catch (error) {
-      setErros(error);
-    }
+    dispatch(updateUser(data));
   };
 
   const handleKeyDown = useCallback((event) => {

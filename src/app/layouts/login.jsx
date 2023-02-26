@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import LoginForm from "../components/ui/loginForm";
 import RegisterForm from "../components/ui/registerForm";
-// import AuthProvider from "../hooks/useAuth";
 
 const Login = () => {
   const { type } = useParams();
@@ -16,29 +15,36 @@ const Login = () => {
   };
   return (
     <>
-      {/* <AuthProvider> */}
       <div className="container mt-5">
         <div className="row">
           <div className="col-md-6 offset-md-3 shadow p-4">
             {formType === "register" ? (
               <>
-                <h3 className="mb-4">Register</h3>
+                <h3 className="mb-4 text-primary">Регистрация</h3>
                 <RegisterForm />
                 <p>
                   У вас уже есть аккаунт?
-                  <a role="button" onClick={toggleFormType}>
-                    Sign in
+                  <a
+                    role="button"
+                    onClick={toggleFormType}
+                    className="text-primary"
+                  >
+                    Войти
                   </a>
                 </p>
               </>
             ) : (
               <>
-                <h3 className="mb-4">Login</h3>
+                <h3 className="mb-4 text-primary">Вход в ситему</h3>
                 <LoginForm />
                 <p>
                   У вас нет аккаунта?
-                  <a role="button" onClick={toggleFormType}>
-                    Sign up
+                  <a
+                    role="button"
+                    onClick={toggleFormType}
+                    className="text-primary"
+                  >
+                    Зарегистрироваться
                   </a>
                 </p>
               </>
@@ -46,7 +52,6 @@ const Login = () => {
           </div>
         </div>
       </div>
-      {/* </AuthProvider> */}
     </>
   );
 };

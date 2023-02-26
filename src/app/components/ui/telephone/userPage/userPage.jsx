@@ -1,10 +1,12 @@
 import React from "react";
 import UserCard from "./userCard";
 import LastCalls from "./lastCalls";
-import { useUser } from "../../../../hooks/useUser";
+import { useSelector } from "react-redux";
+import { getUsers } from "../../../../store/users";
 
 const UserPage = ({ userId }) => {
-  const { users } = useUser();
+  const users = useSelector(getUsers());
+
   const getById = (id) => users.find((user) => user.id === id);
   const user = getById(userId);
 

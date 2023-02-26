@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import RadioField from "../../../common/form/radioField";
 import TextField from "../../../common/form/textfield";
-import { useHistory } from "react-router-dom";
 import { validator } from "../../../../utils/validator";
-import httpService from "../../../../services/http.servise";
+import { useDispatch } from "react-redux";
+import { createUser } from "../../../../store/users";
 
 const NewUser = () => {
-  const history = useHistory();
   const [erros, setErros] = useState({});
   const [data, setData] = useState({
     name: "",
     id: "",
     filial: "",
   });
+  const dispatch = useDispatch();
   const handleChange = ({ target }) => {
     setData((prevState) => ({
       ...prevState,
@@ -49,12 +49,13 @@ const NewUser = () => {
     event.preventDefault();
     const isValid = validate();
     if (!isValid) return;
-    try {
-      await httpService.put("user/" + data.id, data);
-      history.push("/telephonedirectory");
-    } catch (error) {
-      setErros(error);
-    }
+    dispatch(createUser(data));
+    // try {
+    //   await httpService.put("user/" + data.id, data);
+    //   history.push("/telephonedirectory");
+    // } catch (error) {
+    //   setErros(error);
+    // }
   };
 
   return (

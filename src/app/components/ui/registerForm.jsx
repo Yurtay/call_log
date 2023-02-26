@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from "react";
 import TextField from "../common/form/textfield";
 import { validator } from "../../utils/validator";
-import RadioField from "../common/form/radioField";
-import { useAuth } from "../../hooks/useAuth";
-import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { signUp } from "../../store/regUser";
 
 const RegisterForm = () => {
-  const history = useHistory();
+  const dispatch = useDispatch();
   const [data, setData] = useState({
     email: "",
     password: "",
   });
-  const { signUp } = useAuth();
   const [erros, setErros] = useState({});
   const handleChange = ({ target }) => {
     setData((prevState) => ({
@@ -28,7 +26,6 @@ const RegisterForm = () => {
         message: "Email введен некорректно",
       },
     },
-
     password: {
       isRequired: {
         message: "Поле пароль обязательно для заполнения",
@@ -56,16 +53,11 @@ const RegisterForm = () => {
   }, [data]);
   const isValid = Object.keys(erros).length === 0;
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     const isValid = validate();
     if (!isValid) return;
-    try {
-      await signUp(data);
-      history.push("/");
-    } catch (error) {
-      setErros(error);
-    }
+    dispatch(signUp(data));
   };
   return (
     <form onSubmit={handleSubmit}>
@@ -87,7 +79,7 @@ const RegisterForm = () => {
       />
 
       <button disabled={!isValid} className="btn btn-primary w-100 mx-auto">
-        Submit
+        Отправить
       </button>
     </form>
   );
