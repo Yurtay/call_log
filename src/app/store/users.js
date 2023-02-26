@@ -24,12 +24,10 @@ const usersSlice = createSlice({
       ] = action.payload;
     },
     userDeleteSuccessed: (state, action) => {
-      state.entities[
-        state.entities.filter((u) => u.id === !action.payload.id)
-      ] = action.payload;
+      state.entities = state.entities.filter((u) => u.id !== action.payload);
     },
     userCreateSuccessed: (state, action) => {
-      state.entities.push(action.payload);
+      state.entities.unshift(action.payload);
     },
   },
 });
